@@ -1,14 +1,12 @@
 <script>
   import 'papercss/dist/paper.min.css';
   import { Navbar } from 'spaper';
-  import {onMount} from 'svelte';
+  import { onMount } from 'svelte';
 
   let hostPath = '';
   onMount(() => {
     let path = window.location.href;
     hostPath = path.substring(0, path.lastIndexOf('/'));
-    console.log(path);
-    console.log(hostPath);
   });
 </script>
 
@@ -21,7 +19,5 @@
     <li><a href="{hostPath}/featured">精选</a></li>
   </ul>
 </Navbar>
-
-<p>{hostPath}</p>
 
 <slot></slot>
