@@ -1,5 +1,5 @@
 <script>
-  import { Modal, Input, Button, Row } from 'spaper';
+  import { Modal, Input, Button, Row, Article, Col } from 'spaper';
   let showCivitaiModal = false;
 
   function isValidCivitai(url) {
@@ -17,6 +17,15 @@
   <Button on:click={() => showCivitaiModal = true}>
     预览 Civitai 模型
   </Button>
+</Row>
+
+<Row>
+  <Col col="6">
+    <Article title="下载结果" border>
+      <h4 slot="title">下载结果</h4>
+      <p id="good-to-nie-donwload-console"></p>
+    </Article>
+  </Col>
 </Row>
 
 <Modal bind:active={showCivitaiModal}
