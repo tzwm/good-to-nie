@@ -3,17 +3,21 @@
   import { Navbar } from 'spaper';
   import { onMount } from 'svelte';
 
+  /** @type {import('./$types').PageData} */
   export let data;
   const basePath = data.basePath;
+  const urlParams = data.searchParams.toString();
 </script>
 
 <Navbar split={false}>
   <h3 slot="brand">
-    <a href="{basePath}">好捏模型</a>
+    <a href="{basePath}?{urlParams}">好捏模型</a>
   </h3>
   <ul class="inline">
-    <li><a href="{basePath}/download">下载</a></li>
-    <li><a href="{basePath}/featured">精选</a></li>
+    {#if data.webuiAPIClient}
+      <li><a href="{basePath}/tasks?{urlParams}">下载历史</a></li>
+    {/if}
+    <li><a href="{basePath}/featured?{urlParams}">精选</a></li>
   </ul>
 </Navbar>
 
