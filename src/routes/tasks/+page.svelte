@@ -1,10 +1,9 @@
 <script>
   import { Col } from 'spaper';
+  import { onMount } from 'svelte';
 
   /** @type {import('./$types').PageData} */
 	export let data;
-  const client = data.webuiAPIClient;
-
 </script>
 
-<h1>{client}</h1>
+<h1>{data.taskIds.length}</h1>

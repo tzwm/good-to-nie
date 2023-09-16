@@ -7,9 +7,18 @@ export class WebuiAPI {
     this.apiBase = apiBase;
   }
 
-  async ping() {
-    const res = await fetch(`${this.apiBase}/ping`);
+
+  async getTasks() {
+    const res = await fetch(`${this.apiBase}/download_tasks`);
 
     return await res.json();
+  }
+
+  async createTask() {
+    //TODO
+  }
+
+  async getTask() {
+    //TODO
   }
 }
