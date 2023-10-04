@@ -18,7 +18,9 @@ export class WebuiAPI {
     //TODO
   }
 
-  async getTask() {
-    //TODO
+  async getTask(taskId: string) {
+    const res = await fetch(`${this.apiBase}/download_tasks/${taskId}`);
+
+    return await res.json();
   }
 }

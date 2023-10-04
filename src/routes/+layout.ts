@@ -3,7 +3,7 @@ import { WebuiAPI, prePath } from "$lib/webuiApi";
 export const prerender = true;
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ url, fetch }) {
+export async function load({ url }) {
   const path = url.href;
   const basePath = path.substring(0, path.lastIndexOf('/'));
   //const basePath = `${url.origin}${prePath}`;
