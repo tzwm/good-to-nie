@@ -2,7 +2,6 @@
   import { Col, Row } from 'spaper';
   import { onMount } from 'svelte';
   import type { TaskModel } from '$lib/models/task.js';
-  import { TASK_STATUS } from '$lib/models/task';
 
 	export let data;
   const { webuiAPIClient } = data;
@@ -21,24 +20,36 @@
     });
   }
 
+  async function getTask(taskId: string) {
+    const ret = await webuiAPIClient?.getTask(taskId);
+
+    return {
+      id: ret.id,
+      modelType: ret.model_type,
+      filename: ret.filename,
+      downloadUrl: ret.download_url,
+      md5: ret.md5,
+      ref: ret.ref,
+      status: ret.status,
+      statusText: ret.status_text,
+      output: ret.output,
+    }
+  }
+
   async function onTaskClick(taskId: string) {
-    if (st?.id == taskId) {
+    await refreshSelectedTask(taskId);
+  }
+
+  async function refreshSelectedTask(taskId: string = st?.id) {
+    if (!taskId) {
       return;
     }
 
-    const ret = await webuiAPIClient?.getTask(taskId);
-    if (ret.id) {
-      st = {
-        id: ret.id,
-        modelType: ret.model_type,
-        filename: ret.filename,
-        downloadUrl: ret.download_url,
-        md5: ret.md5,
-        ref: ret.ref,
-        status: ret.status,
-        statusText: ret.status_text,
-        output: ret.output,
-      }
+    st = await getTask(taskId);
+
+    const outputTextEle = document.getElementById('task-output');
+    if (outputTextEle) {
+      outputTextEle.scrollTop = outputTextEle.scrollHeight;
     }
   }
 </script>
@@ -72,6 +83,7 @@
         <p>类型：{st.modelType}</p>
         <p>状态：{st.status }</p>
         <textarea
+          id="task-output"
           style="width: 100%;"
           rows="20"
           class="background-primary"
