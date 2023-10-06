@@ -5,8 +5,9 @@ export const prerender = true;
 /** @type {import('./$types').PageLoad} */
 export async function load({ url }) {
   const path = url.href;
-  const basePath = path.substring(0, path.lastIndexOf('/'));
-  //const basePath = `${url.origin}${prePath}`;
+  const lastSlashIndex = path.lastIndexOf('/');
+  const basePath = path.substring(0, lastSlashIndex);
+  const currentPath = path.substring(lastSlashIndex, path.indexOf('?'));
   let webuiAPIClient: WebuiAPI | null = null;
   let searchParams = '';
 
@@ -25,7 +26,8 @@ export async function load({ url }) {
 
   return {
     basePath,
-    webuiAPIClient,
+    currentPath,
     searchParams,
+    webuiAPIClient,
   }
 }

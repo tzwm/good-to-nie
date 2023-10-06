@@ -1,12 +1,11 @@
 <script lang="ts">
   import 'papercss/dist/paper.min.css';
-  import { page } from '$app/stores';
   import { Navbar } from 'spaper';
 
   export let data: any;
-  const basePath = data.basePath;
-  const params = data.searchParams;
-  $: currentPath = $page.url.pathname;
+  const { basePath } = data;
+  $: currentPath = data.currentPath;
+  $: searchParams = data.searchParams;
 </script>
 
 <style>
@@ -16,19 +15,20 @@
 </style>
 
 <Navbar split={false}>
+  {console.log(currentPath)}
   <h3 slot="brand">
-    <a href="{basePath}?{params}">好捏模型</a>
+    <a href="{basePath}/?{searchParams}">好捏模型</a>
   </h3>
   <ul class="inline">
     {#if data.webuiAPIClient}
       <li><a
           aria-current={currentPath === '/tasks'}
-          href="{basePath}/tasks?{params}"
+          href="{basePath}/tasks?{searchParams}"
         >下载历史</a></li>
     {/if}
     <li><a
         aria-current={currentPath === '/featured' || currentPath === '/'}
-          href="{basePath}/featured?{params}"
+          href="{basePath}/featured?{searchParams}"
         >精选</a></li>
   </ul>
 </Navbar>
